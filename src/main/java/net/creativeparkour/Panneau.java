@@ -19,6 +19,8 @@ package net.creativeparkour;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -514,7 +516,7 @@ class PanneauClassement extends PanneauMap
 				CPTime t = it.next();
 				if (i >= borneInf-1)
 				{
-					String temps = String.valueOf((int) t.inSeconds());
+					String temps = String.format("%.1f", t.inSeconds());
 					String joueur = CPUtils.playerScoreboardName(t.playerUUID.toString());
 					panneau.setLine(ligne, CPUtils.truncatedStr(ChatColor.DARK_AQUA + temps + ": " + ChatColor.RESET + joueur, 20));
 					ligne++;
