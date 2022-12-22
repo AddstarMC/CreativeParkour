@@ -618,12 +618,13 @@ class Config implements Listener
 
 	static void repondreQMonde(Player p, boolean reponse)
 	{
+		String wname = configGenerale.getString("map storage.map storage world");
 		if (reponse == true)
 		{
 			p.sendMessage(ChatColor.ITALIC + Langues.getMessage("config.storage.world creating"));
-			Bukkit.getLogger().info(Config.prefix(false) + "Creating world 'CreativeParkourMaps'...");
+			Bukkit.getLogger().info(Config.prefix(false) + "Creating world '" + wname + "'...");
 
-			WorldCreator wc = new WorldCreator("CreativeParkourMaps").type(WorldType.FLAT).generateStructures(false);
+			WorldCreator wc = new WorldCreator(wname).type(WorldType.FLAT).generateStructures(false);
 			monde = Bukkit.createWorld(wc);
 			monde.setPVP(false);
 			monde.setAutoSave(true);
@@ -638,7 +639,7 @@ class Config implements Listener
 			monde.setGameRuleValue("mobGriefing", "false");
 			monde.setSpawnLocation(0, 4, 0);
 
-			updateConfig("map storage.map storage world", "CreativeParkourMaps");
+			updateConfig("map storage.map storage world", wname);
 			updateConfig("map storage.use plugin world", true);
 			updateConfig("map storage.storage location x min", 0);
 			updateConfig("map storage.storage location y min", 10);
