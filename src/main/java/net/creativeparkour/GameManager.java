@@ -1103,7 +1103,7 @@ class GameManager implements Listener
 		{
 			p.sendMessage(Config.prefix() + ChatColor.RED + Langues.getMessage("not allowed"));
 		}
-		else if (!p.hasPermission("creativeparkour.infinite") && nbMapsPubliees(p) > Config.getConfig().getInt("map creation.maps per player limit"))
+		else if (!p.hasPermission("creativeparkour.infinite") && nbMapsPubliees(p) >= nbAllowedMaps(p))
 		{
 			p.sendMessage(Config.prefix() + ChatColor.RED + Langues.getMessage("too many maps"));
 		}
@@ -2176,6 +2176,18 @@ class GameManager implements Listener
 				nb++;
 		}
 		return nb;
+	}
+
+	static int nbAllowedMaps(Player p) {
+		int maxallowed = Config.getConfig().getInt("map creation.maps per player limit");
+		int allowed = 1;
+		for (int x = maxallowed; x > 1; x--) {
+			if (p.hasPermission("creativeparkour.create." + x)) {
+				allowed = x;
+				break;
+			}
+		}
+		return allowed;
 	}
 
 	static void supprimerMap(UUID uuid, Player p)
