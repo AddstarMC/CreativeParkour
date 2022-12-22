@@ -640,7 +640,7 @@ class MainListener implements Listener
 				p.teleport(Config.getExitLocation());
 				p.sendMessage(Config.prefix() + ChatColor.RED + Langues.getMessage("not allowed"));
 			}
-			else if (m == null && GameManager.estDansUneMap(l.getBlock()))
+			else if (m == null && GameManager.estDansUneMap(l.getBlock()) && !p.hasPermission("creativeparkour.manage"))
 			{
 				// Si un joueur tente d'entrer dans une map
 				p.teleport(e.getFrom());
@@ -822,7 +822,8 @@ class MainListener implements Listener
 		{
 			m = j.getMapObjet();
 		}
-		if ((m == null || !m.containsBlock(l.getBlock())) && l.getWorld().equals(Config.getMonde()) && GameManager.estDansUneMap(l.getBlock()))
+		if ((m == null || !m.containsBlock(l.getBlock())) && l.getWorld().equals(Config.getMonde())
+				&& GameManager.estDansUneMap(l.getBlock()) && !e.getPlayer().hasPermission("creativeparkour.manage"))
 		{
 			e.setCancelled(true);
 			e.getPlayer().sendMessage(Config.prefix() + ChatColor.RED + Langues.getMessage("not allowed"));
