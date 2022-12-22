@@ -48,6 +48,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.block.Skull;
 import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.data.type.WallSign;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -837,11 +838,12 @@ public class CPMap
 			{
 				if (CPUtils.signs.isa(blocs.get(i).getType()))
 				{
-					Sign sign = (Sign) blocs.get(i).getState();
-					org.bukkit.block.data.type.Sign sign2 = (org.bukkit.block.data.type.Sign) blocs.get(i).getBlockData();
-					if (sign.getLine(0).toLowerCase().contains(BlocSpawn.getTag()))
-					{
-						spawn = new BlocSpawn(blocs.get(i), blocs.get(i).getType() ,(byte) CPUtils.BlockFaceToInt(sign2.getRotation()));
+					if (!(blocs.get(i).getBlockData() instanceof WallSign)) {
+						Sign sign = (Sign) blocs.get(i).getState();
+						org.bukkit.block.data.type.Sign sign2 = (org.bukkit.block.data.type.Sign) blocs.get(i).getBlockData();
+						if (sign.getLine(0).toLowerCase().contains(BlocSpawn.getTag())) {
+							spawn = new BlocSpawn(blocs.get(i), blocs.get(i).getType(), (byte) CPUtils.BlockFaceToInt(sign2.getRotation()));
+						}
 					}
 				}
 			}
