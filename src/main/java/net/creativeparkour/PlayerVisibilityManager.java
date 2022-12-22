@@ -20,6 +20,9 @@ package net.creativeparkour;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 import com.comphenix.packetwrapper.WrapperPlayServerEntityEquipment;
@@ -124,13 +127,21 @@ class PlayerVisibilityManager
 				metadata.setMetadata(data);
 				metadata.sendPacket(joueur.getPlayer());
 
-
+				/*
 				WrapperPlayServerEntityEquipment equipment = new WrapperPlayServerEntityEquipment();
-				equipment.setEntityID(j.getPlayer().getEntityId());
-				equipment.setSlot(ItemSlot.MAINHAND);
-				ItemStack item = CPUtils.itemInHand(j.getPlayer());
-				equipment.setItem(CPUtils.itemStackIsEmpty(item) ? null : item);
-				equipment.sendPacket(joueur.getPlayer());
+				try {
+					equipment.setEntityID(j.getPlayer().getEntityId());
+					equipment.setSlot(ItemSlot.MAINHAND);
+					ItemStack item = CPUtils.itemInHand(j.getPlayer());
+					equipment.setItem(CPUtils.itemStackIsEmpty(item) ? null : item);
+					equipment.sendPacket(joueur.getPlayer());
+				}
+				catch (Exception e) {
+					Bukkit.getLogger().warning("Failed to change visibility of "
+							+ j.getPlayer().getName() + " for " + joueur.getPlayer().getName());
+					e.printStackTrace();
+				}
+				*/
 			}
 		}
 	}
