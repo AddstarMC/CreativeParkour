@@ -84,7 +84,7 @@ class PlayerVisibilityManager
 					}
 				});
 
-		protocolManager.addPacketListener(
+		/*protocolManager.addPacketListener(
 				new PacketAdapter(CreativeParkour.getPlugin(), ListenerPriority.NORMAL, 
 						PacketType.Play.Server.ENTITY_EQUIPMENT) {
 					@Override
@@ -99,15 +99,22 @@ class PlayerVisibilityManager
 							{
 								if (j.visibiliteJoueurs() == VisibiliteJoueurs.INVISIBLE)
 								{
-									if (packet.getSlot() == ItemSlot.MAINHAND)
-									{
-										packet.setItem(null);
+									try {
+										if (packet.getSlot() == ItemSlot.MAINHAND) {
+											packet.setItem(null);
+										}
 									}
+									catch (Exception e) {
+
+											Bukkit.getLogger().warning("(PacketListener) Failed to change visibility of held item of "
+													+ j2.getPlayer().getName() + " for " + j.getPlayer().getName());
+											e.printStackTrace();
+										}
 								}
 							}
 						}
 					}
-				});
+				});*/
 	}
 
 	static boolean isEnabled()
