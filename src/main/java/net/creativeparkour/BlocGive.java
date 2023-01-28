@@ -21,7 +21,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 
-enum TypeGive { ELYTRA, ENDER_PEARL, FIREWORK };
+enum TypeGive { ELYTRA, ENDER_PEARL, FIREWORK_ROCKET };
 
 class BlocGive extends BlocSpecial
 {
@@ -34,7 +34,7 @@ class BlocGive extends BlocSpecial
 		if (type.toLowerCase().contains("elytra"))
 			this.type = TypeGive.ELYTRA;
 		else if (type.toLowerCase().contains("firework"))
-			this.type = TypeGive.FIREWORK;
+			this.type = TypeGive.FIREWORK_ROCKET;
 		else
 			this.type = TypeGive.ENDER_PEARL;
 		if (donner.toLowerCase().contains("take") || donner.toLowerCase().contains("remove"))
@@ -62,7 +62,7 @@ class BlocGive extends BlocSpecial
 					j.retirerElytres();
 				}
 			}
-			else if (type == TypeGive.FIREWORK)
+			else if (type == TypeGive.FIREWORK_ROCKET)
 			{
 				if (donner)
 					j.donnerFusees();

@@ -187,6 +187,10 @@ class GameManager implements Listener
 							}
 							else if (type.equalsIgnoreCase(BlocGive.getType())) // Gives
 							{
+								// Update legacy config from FIREWORK to FIREWORK_ROCKET
+								if (ymlBS.getString(key + ".type").equalsIgnoreCase("FIREWORK")) {
+									ymlBS.set(key + ".type", "FIREWORK_ROCKET");
+								}
 								blocsSpeciaux.add(new BlocGive(bloc, Material.valueOf(ymlBS.getString(key + ".type")), ymlBS.getString(key + ".type"), ymlBS.getString(key + ".action")));
 							}
 							else if (type.equalsIgnoreCase(BlocMort.getType())) // Morts
