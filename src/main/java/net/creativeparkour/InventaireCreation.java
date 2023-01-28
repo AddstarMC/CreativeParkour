@@ -96,15 +96,18 @@ class InventaireCreation
 		{
 			if (action == ActionInv.NOUVELLE_MAP)
 			{
-				j.getPlayer().closeInventory();
+				if (!j.getPlayer().hasPermission("creativeparkour.infinite")
+						&& GameManager.nbMapsPubliees(j.getPlayer()) >= GameManager.nbAllowedMaps(j.getPlayer()))
+				{
+					j.getPlayer().sendMessage(Config.prefix() + ChatColor.RED + Langues.getMessage("too many maps"));
+				} else {
+					j.getPlayer().closeInventory();
 
-				if (autreMap != null)
-				{
-					Commandes.question(j.getPlayer(), Langues.getMessage("creation.erase question"),"écraser map");
-				}
-				else
-				{
-					GameManager.nouvelleMap(j.getPlayer(), true, null);
+					if (autreMap != null) {
+						Commandes.question(j.getPlayer(), Langues.getMessage("creation.erase question"), "écraser map");
+					} else {
+						GameManager.nouvelleMap(j.getPlayer(), true, null);
+					}
 				}
 			}
 			else if (action == ActionInv.CHARGER_MAP)
