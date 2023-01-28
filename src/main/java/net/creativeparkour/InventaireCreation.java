@@ -61,9 +61,15 @@ class InventaireCreation
 		}
 		setObjet(11, Material.MAP, ChatColor.GREEN + Langues.getMessage("creation.new map"), lore, ActionInv.NOUVELLE_MAP);
 
-		setObjet(15, Material.FILLED_MAP, ChatColor.AQUA + Langues.getMessage("creation.load map"), null, ActionInv.CHARGER_MAP);
+		if (autreMap != null) {
+			lore = CPUtils.divideText("Map ID: " + autreMap.getId(), ChatColor.AQUA);
+		} else {
+			lore = CPUtils.divideText("No map in progress", ChatColor.RED);
+		}
+		setObjet(15, Material.FILLED_MAP, ChatColor.GREEN + Langues.getMessage("creation.load map"), lore, ActionInv.CHARGER_MAP);
 
-		setObjet(31, Material.PAPER, ChatColor.YELLOW + Langues.getMessage("creation.other maps"), null, ActionInv.AUTRES_MAPS);
+		lore = CPUtils.divideText("Visit maps that you have collaborator access to.", ChatColor.AQUA);
+		setObjet(31, Material.WRITTEN_BOOK, ChatColor.GREEN + Langues.getMessage("creation.other maps"), lore, ActionInv.AUTRES_MAPS);
 	}
 
 	private void setObjet(int posInv, Material material, String nom, List<String> lore, ActionInv action)

@@ -320,11 +320,16 @@ public class CPMap
 	private void creerScoreboardC()
 	{
 		scoreboardCreation = Bukkit.getScoreboardManager().getNewScoreboard();
+
 		Objective obj = scoreboardCreation.registerNewObjective("cp_status", "dummy");
 		String s = ChatColor.GOLD + "" + ChatColor.BOLD + Langues.getMessage("creation.status");
 		if (s.length() > 32) { s = s.substring(0, 32); }
 		obj.setDisplayName(s);
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+		s = ChatColor.YELLOW + "" + ChatColor.BOLD + "Map ID";
+		obj.getScore(s).setScore(getId());
+
 		s = ChatColor.RED + Langues.getMessage("creation.unvalidated");
 		if (s.length() > 16) { s = s.substring(0, 16); }
 		obj.getScore(s).setScore(-1);

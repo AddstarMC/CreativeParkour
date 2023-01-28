@@ -139,7 +139,8 @@ class InventaireSelection
 					if (m.isPinned())
 						gras += ChatColor.BOLD;
 					meta.setDisplayName(ChatColor.AQUA + gras + m.getName());
-					
+
+					lore.add(ChatColor.YELLOW + "Map ID: " + m.getId());
 					String nomCreateur = null;
 					if (m.getWebData() == null) // Si est une map locale
 						nomCreateur = NameManager.getNomAvecUUID(m.getCreator());
