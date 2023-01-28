@@ -42,7 +42,7 @@ import net.md_5.bungee.api.ChatColor;
 
 class InventaireSelection
 {
-	private enum ActionInv { PAGE_PRECEDENTE, PAGE_SUIVANTE, TRI_ALPHABETIQUE, TRI_CREATEUR, TRI_DIFFICULTE, TRIER_CROISSANT, TRIER_DECROISSANT, AFFICHER_TELECHARGEABLES, MASQUER_TELECHARGEABLES, AFFICHER_LOCALES, MASQUER_LOCALES };
+	private enum ActionInv { PAGE_PRECEDENTE, PAGE_SUIVANTE, TRI_ALPHABETIQUE, TRI_CREATEUR, TRI_DIFFICULTE, TRI_QUALITY, TRIER_CROISSANT, TRIER_DECROISSANT, AFFICHER_TELECHARGEABLES, MASQUER_TELECHARGEABLES, AFFICHER_LOCALES, MASQUER_LOCALES };
 
 	private Map<Integer, CPMap> elements = new Hashtable<Integer, CPMap>();
 	private Map<Integer, ActionInv> speciaux = new Hashtable<Integer, ActionInv>();
@@ -364,6 +364,13 @@ class InventaireSelection
 					item.setItemMeta(meta);
 					itemsAMettre.put(tailleInv - 2, item);
 					speciaux.put(tailleInv - 2, ActionInv.TRI_DIFFICULTE);
+
+					item = new ItemStack(Material.PURPLE_DYE, 1);
+					meta = item.getItemMeta();
+					meta.setDisplayName(ChatColor.LIGHT_PURPLE + Langues.getMessage("play.sort quality"));
+					item.setItemMeta(meta);
+					itemsAMettre.put(tailleInv - 1, item);
+					speciaux.put(tailleInv - 1, ActionInv.TRI_QUALITY);
 				}
 				//				nano = Util.debugNanoTime("IS5", nano);
 
@@ -464,6 +471,25 @@ class InventaireSelection
 							return 0;
 						return triCroissant * Float.compare(d1, d2);
 					} 
+				};
+				trier();
+				setPage(1);
+			}
+			else if (action == ActionInv.TRI_QUALITY)
+			{
+				comparator = new Comparator<CPMap>() {
+					@Override public int compare(CPMap m1, CPMap m2)
+					{
+						float d1 = m1.getQuality();
+						float d2 = m2.getQuality();
+						if (d1 > 0 && d2 <= 0)
+							return -1;
+						else if (d1 <= 0 && d2 > 0)
+							return 1;
+						else if (d1 < 0 && d2 < 0)
+							return 0;
+						return triCroissant * Float.compare(d1, d2);
+					}
 				};
 				trier();
 				setPage(1);

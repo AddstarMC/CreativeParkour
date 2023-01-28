@@ -340,6 +340,7 @@ creation.wand.selection_error=Your WorldEdit selection is not valid because it c
 play.sort_name=Sort by name
 play.sort_creator=Sort by creator
 play.sort_difficulty=Sort by difficulty
+play.sort_quality=Sort by quality
 play.ascending_sorting=Ascending sorting
 play.descending_sorting=Descending sorting
 play.show_local=Show local maps
