@@ -96,6 +96,7 @@ class InventaireCreation
 		{
 			if (action == ActionInv.NOUVELLE_MAP)
 			{
+
 				if (!j.getPlayer().hasPermission("creativeparkour.infinite")
 						&& GameManager.nbMapsPubliees(j.getPlayer()) >= GameManager.nbAllowedMaps(j.getPlayer()))
 				{

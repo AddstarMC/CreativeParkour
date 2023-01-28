@@ -51,7 +51,7 @@ permissions:
        creativeparkour.play: true
    creativeparkour.infinite:
      description: Allows players to create an infinite number of maps. Check out "map creation.maps per player limit" in configuration.yml to configure the limit.
-     default: true
+     default: op
    creativeparkour.worldedit:
      description: Allows players to use the WorldEdit wand when creating maps.
      default: true
@@ -60,7 +60,7 @@ permissions:
      default: op
    creativeparkour.share:
      description: Allows players to share their maps on the CreativeParkour website.
-     default: true
+     default: op
    creativeparkour.download:
      description: Allows players to play parkour maps from the CreativeParkour website.
      default: op
