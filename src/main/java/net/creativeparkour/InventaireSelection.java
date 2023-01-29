@@ -463,7 +463,9 @@ class InventaireSelection
 					{
 						float d1 = m1.getDifficulty();
 						float d2 = m2.getDifficulty();
-						if (d1 > 0 && d2 <= 0)
+						if (Float.isNaN(d1) && !Float.isNaN(d2))
+							return 1;
+						else if (d1 > 0 && d2 <= 0)
 							return -1;
 						else if (d1 <= 0 && d2 > 0)
 							return 1;
@@ -482,7 +484,9 @@ class InventaireSelection
 					{
 						float d1 = m1.getQuality();
 						float d2 = m2.getQuality();
-						if (d1 > 0 && d2 <= 0)
+						if (Float.isNaN(d1) && !Float.isNaN(d2))
+							return 1;
+						else if (d1 > 0 && d2 <= 0)
 							return -1;
 						else if (d1 <= 0 && d2 > 0)
 							return 1;

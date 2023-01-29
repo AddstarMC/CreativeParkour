@@ -100,6 +100,7 @@ class InventaireCreation
 				if (!j.getPlayer().hasPermission("creativeparkour.infinite")
 						&& GameManager.nbMapsPubliees(j.getPlayer()) >= GameManager.nbAllowedMaps(j.getPlayer()))
 				{
+					j.getPlayer().closeInventory();
 					j.getPlayer().sendMessage(Config.prefix() + ChatColor.RED + Langues.getMessage("too many maps"));
 				} else {
 					j.getPlayer().closeInventory();

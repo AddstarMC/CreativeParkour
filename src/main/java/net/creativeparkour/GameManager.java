@@ -1107,10 +1107,6 @@ class GameManager implements Listener
 		{
 			p.sendMessage(Config.prefix() + ChatColor.RED + Langues.getMessage("not allowed"));
 		}
-		else if (!p.hasPermission("creativeparkour.infinite") && nbMapsPubliees(p) >= nbAllowedMaps(p))
-		{
-			p.sendMessage(Config.prefix() + ChatColor.RED + Langues.getMessage("too many maps"));
-		}
 		else if (Config.getConfig().getInt("game.max players in storage world") != -1 && nbJoueurs >= Config.getConfig().getInt("game.max players in storage world"))
 		{
 			p.sendMessage(Config.prefix() + ChatColor.RED + Langues.getMessage("too many players"));
