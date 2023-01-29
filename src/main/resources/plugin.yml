@@ -11,7 +11,7 @@ api-version: 1.16
 commands:
    creativeparkour:
      description: Global command of the CreativeParkour plugin, type '/cp help' for full help.
-     aliases: [cp,cpk]
+     aliases: [cp,cpk,communityparkour]
      permission: creativeparkour.play
      permission-message: You are not permitted to use CreativeParkour.
      usage: Type "/cp help" for full help. If you keep seeing this message, a problem occurred when loading CreativeParkour. Please look for errors in console and report the problem.

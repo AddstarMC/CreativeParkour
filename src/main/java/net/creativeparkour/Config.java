@@ -87,7 +87,7 @@ class Config implements Listener
 		String path = new String();
 
 		// On reprend le petit préfixe des anciennes versions s'il était activé :
-		String defPrefix = configGenerale.getBoolean("small tag", false) ? (ChatColor.YELLOW + "[" + ChatColor.GOLD + "CP" + ChatColor.YELLOW + "]") : ChatColor.YELLOW + "[" + ChatColor.GOLD + "CreativeParkour" + ChatColor.YELLOW + "]";		
+		String defPrefix = configGenerale.getBoolean("small tag", false) ? (ChatColor.YELLOW + "[" + ChatColor.GOLD + "CP" + ChatColor.YELLOW + "]") : ChatColor.YELLOW + "[" + ChatColor.GOLD + "CommunityParkour" + ChatColor.YELLOW + "]";
 
 		// Fichier configuration.yml
 		path = "plugin enabled"; if(!configGenerale.contains(path)) { configGenerale.set(path, true); }
@@ -723,6 +723,6 @@ class Config implements Listener
 		if (colored)
 			return configGenerale.getString("prefix") + ChatColor.RESET + " ";
 		else
-			return "[CreativeParkour] ";
+			return "[CommunityParkour] ";
 	}
 }
