@@ -1960,7 +1960,7 @@ class GameManager implements Listener
 				p.teleport(spawn.getLocation().add(0.5, 0, 0.5));
 				j.modeCreation();
 
-				CPUtils.sendClickableMsg(p, Langues.getMessage("creation.new"), null, "https://web.archive.org/web/20190126170749/https://creativeparkour.net/doc/map-creation.php", "%L", ChatColor.YELLOW);
+				CPUtils.sendClickableMsg(p, Langues.getMessage("creation.new"), null, "https://tinyurl.com/addstarmccp", "%L", ChatColor.YELLOW);
 				CreativeParkour.debug("MG4", "Finished building the new parkour map.");
 
 				if (blocInterdit)

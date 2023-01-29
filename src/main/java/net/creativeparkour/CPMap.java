@@ -1136,7 +1136,7 @@ public class CPMap
 		etat = CPMapState.CREATION;
 		creerScoreboardC();
 		j.modeCreation();
-		CPUtils.sendClickableMsg(p, Langues.getMessage("creation.new"), null, "https://web.archive.org/web/20190120125913/https://creativeparkour.net/doc/map-creation.php", "%L", ChatColor.YELLOW);
+		CPUtils.sendClickableMsg(p, Langues.getMessage("creation.new"), null, "https://tinyurl.com/addstarmccp", "%L", ChatColor.YELLOW);
 
 		// Si le joueur n'est pas le créateur, on le met créateur et on met le créateur dans les contributeurs
 		if (!p.getUniqueId().equals(createur))

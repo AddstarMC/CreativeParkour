@@ -36,6 +36,7 @@ class Help
 	private static ChatColor gold = ChatColor.GOLD;
 	private static ChatColor d_green = ChatColor.DARK_GREEN;
 	private static ChatColor green = ChatColor.GREEN;
+	private static ChatColor aqua = ChatColor.AQUA;
 
 	private static String trans = reset + " : " + italic;
 
@@ -107,6 +108,7 @@ class Help
 		}
 
 		sender.sendMessage(gold + "------ " + d_green  + bold + CreativeParkour.getNom() + " \u2022 " + Langues.getMessage("help.title") + gold + " ------");
+		sender.sendMessage(yellow + "Full help wiki: " + aqua + "https://tinyurl.com/addstarmccp");
 		sender.sendMessage(italic + "" + green + Langues.getMessage("help.page") + " " + pageNb + "/"+ (int) nbPages + reset + green + " - " + Langues.getMessage("help.page command"));
 
 		int l = (pageNb-1) * commandesParPage;
