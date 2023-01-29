@@ -137,7 +137,7 @@ public class CreativeParkour extends JavaPlugin implements Listener
 
 	static String getNom()
 	{
-		return "CreativeParkour";
+		return "CommunityParkour";
 	}
 
 	static Plugin getPlugin()
