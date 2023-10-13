@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -469,8 +470,18 @@ class MainListener implements Listener
 				else
 					j.donnerFusees();
 			}
-			else if (m != null && !CPUtils.itemStackIsEmpty(objetMain) && objetMain.getItemMeta() != null && objetMain.getItemMeta().getDisplayName() != null && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) && (j.getEtat() == EtatJoueur.JEU || j.getEtat() == EtatJoueur.SPECTATEUR))
+			else if (m != null
+					&& !CPUtils.itemStackIsEmpty(objetMain)
+					&& objetMain.getItemMeta() != null
+					&& objetMain.getItemMeta().getDisplayName() != null
+					&& (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)
+					&& (j.getEtat() == EtatJoueur.JEU || j.getEtat() == EtatJoueur.SPECTATEUR))
 			{
+				if (e.getAction() == Action.RIGHT_CLICK_AIR && objetMain.getType() == Material.ENDER_PEARL) {
+					// Allow throwing ender pearls
+					return;
+				}
+
 				e.setCancelled(true);
 				if (objetMain.getItemMeta().getDisplayName().contains(Langues.getMessage("play.items.return start")))
 				{
