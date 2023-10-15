@@ -17,26 +17,11 @@
 
 package net.creativeparkour;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.EnumWrappers;
-import org.bukkit.Bukkit;
-import org.bukkit.inventory.ItemStack;
-
-import com.comphenix.packetwrapper.WrapperPlayServerEntityEquipment;
-import com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
-import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.EnumWrappers.ItemSlot;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher.Registry;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher.WrappedDataWatcherObject;
-import com.comphenix.protocol.wrappers.WrappedWatchableObject;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.metadata.MetadataValue;
 
 class PlayerVisibilityManager
 {
@@ -47,74 +32,6 @@ class PlayerVisibilityManager
 	{
 		protocolManager = ProtocolLibrary.getProtocolManager();
 		enabled = true;
-		protocolManager.addPacketListener(
-				new PacketAdapter(CreativeParkour.getPlugin(), ListenerPriority.NORMAL, 
-						PacketType.Play.Server.ENTITY_METADATA) {
-					@Override
-					public void onPacketSending(PacketEvent event) {		        
-						WrapperPlayServerEntityMetadata packet = new WrapperPlayServerEntityMetadata(event.getPacket());
-						Joueur j = GameManager.getJoueur(event.getPlayer());
-						if (j != null && j.getMap() != null && j.getEtat() == EtatJoueur.JEU)
-						{
-							Joueur j2 = GameManager.getJoueur(packet.getEntityID());
-							if (!j.equals(j2) && j2 != null && j2.getMap() != null && j2.getMap().equals(j.getMap()))
-							{
-								if (j.visibiliteJoueurs() == VisibiliteJoueurs.TRANSPARENT || j.visibiliteJoueurs() == VisibiliteJoueurs.INVISIBLE)
-								{
-									Byte input = null;
-									// Find the flag value
-									for (WrappedWatchableObject object : packet.getMetadata()) {
-										if (object.getIndex() == 0) {
-											input = (Byte) object.getValue();
-											break;
-										}
-									}
-
-									if (input != null)
-									{
-										packet = new WrapperPlayServerEntityMetadata(packet.getHandle().deepClone());
-										List<WrappedWatchableObject> data = new ArrayList<WrappedWatchableObject>();
-										data.add(new WrappedWatchableObject(new WrappedDataWatcherObject(0, Registry.get(Byte.class)), (byte) (input + CPUtils.invisibilityVal)));
-										packet.setMetadata(data);
-										event.setPacket(packet.getHandle());
-									}
-								}
-							}
-						}
-					}
-				});
-
-		/*protocolManager.addPacketListener(
-				new PacketAdapter(CreativeParkour.getPlugin(), ListenerPriority.NORMAL, 
-						PacketType.Play.Server.ENTITY_EQUIPMENT) {
-					@Override
-					public void onPacketSending(PacketEvent event) {
-						
-						WrapperPlayServerEntityEquipment packet = new WrapperPlayServerEntityEquipment(event.getPacket());
-						Joueur j = GameManager.getJoueur(event.getPlayer());
-						if (j != null && j.getMap() != null)
-						{
-							Joueur j2 = GameManager.getJoueur(packet.getEntityID());
-							if (!j.equals(j2) && j2 != null && j2.getMap() != null && j2.getMap().equals(j.getMap()))
-							{
-								if (j.visibiliteJoueurs() == VisibiliteJoueurs.INVISIBLE)
-								{
-									try {
-										if (packet.getSlot() == ItemSlot.MAINHAND) {
-											packet.setItem(null);
-										}
-									}
-									catch (Exception e) {
-
-											Bukkit.getLogger().warning("(PacketListener) Failed to change visibility of held item of "
-													+ j2.getPlayer().getName() + " for " + j.getPlayer().getName());
-											e.printStackTrace();
-										}
-								}
-							}
-						}
-					}
-				});*/
 	}
 
 	static boolean isEnabled()
@@ -123,33 +40,50 @@ class PlayerVisibilityManager
 	}
 
 	static void majVisibiliteJoueurs(Joueur joueur) {
-		for (Joueur j : GameManager.getJoueurs(joueur.getMap()))
+		for (Joueur observer : GameManager.getJoueurs(joueur.getMap()))
 		{
-			if (!j.equals(joueur))
+			if (!observer.equals(joueur))
 			{
-				WrapperPlayServerEntityMetadata metadata = new WrapperPlayServerEntityMetadata();
-				metadata.setEntityID(j.getPlayer().getEntityId());
-				List<WrappedWatchableObject> data = new ArrayList<WrappedWatchableObject>();
-				data.add(new WrappedWatchableObject(new WrappedDataWatcherObject(0, Registry.get(Byte.class)), j.getValPacketMetadata()));
-				metadata.setMetadata(data);
-				metadata.sendPacket(joueur.getPlayer());
-
-				/*
-				WrapperPlayServerEntityEquipment equipment = new WrapperPlayServerEntityEquipment();
-				try {
-					equipment.setEntityID(j.getPlayer().getEntityId());
-					equipment.setSlot(ItemSlot.MAINHAND);
-					ItemStack item = CPUtils.itemInHand(j.getPlayer());
-					equipment.setItem(CPUtils.itemStackIsEmpty(item) ? null : item);
-					equipment.sendPacket(joueur.getPlayer());
+				if (!isVanished(observer.getPlayer())) {
+					if (joueur.visibiliteJoueurs() == VisibiliteJoueurs.VISIBLE)
+						showPlayerTo(observer.getPlayer(), joueur.getPlayer());
+					else
+						hidePlayerFrom(observer.getPlayer(), joueur.getPlayer());
 				}
-				catch (Exception e) {
-					Bukkit.getLogger().warning("Failed to change visibility of "
-							+ j.getPlayer().getName() + " for " + joueur.getPlayer().getName());
-					e.printStackTrace();
-				}
-				*/
 			}
 		}
+	}
+
+	static void updatePlayerVisibility(Joueur player) {
+		if (player.getMap() != null) {
+			// Player is inside a map
+			majVisibiliteJoueurs(player);
+		} else {
+			// Player not in a map
+			// Ensure observers can see this play
+			for (Player observer : Bukkit.getOnlinePlayers()) {
+				if (!observer.equals(player.getPlayer())) {
+					if (!isVanished(observer.getPlayer())) {
+						showPlayerTo(player.getPlayer(), observer);
+						showPlayerTo(observer, player.getPlayer());
+					}
+				}
+			}
+		}
+	}
+
+	static public void hidePlayerFrom(Player playerToHide, Player observer) {
+		observer.hidePlayer(CreativeParkour.getPlugin(), playerToHide);
+	}
+
+	static public void showPlayerTo(Player playerToShow, Player observer) {
+		observer.showPlayer(CreativeParkour.getPlugin(), playerToShow);
+	}
+
+	static private boolean isVanished(Player player) {
+		for (MetadataValue meta : player.getMetadata("vanished")) {
+			if (meta.asBoolean()) return true;
+		}
+		return false;
 	}
 }

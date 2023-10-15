@@ -399,6 +399,7 @@ public class CPMap
 				Location loc = spawn.getLocation().add(0.5, 0, 0.5);
 				loc.setYaw(loc.getYaw() + 180);
 				j.getPlayer().teleport(loc);
+				PlayerVisibilityManager.updatePlayerVisibility(j);
 			}
 			j.modeJeu();
 			String c = NameManager.getNomAvecUUID(createur);

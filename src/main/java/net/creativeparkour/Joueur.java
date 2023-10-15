@@ -653,17 +653,23 @@ class Joueur
 						if (CreativeParkour.getPlugin().isEnabled()) // Parce que le plugin est désactivé quand le serveur s'éteint et qu'on vire les joueurs
 						{
 							final Location locTPf = locTP;
+							final Joueur joueur = this;
 							Bukkit.getScheduler().runTaskLater(CreativeParkour.getPlugin(), new Runnable() {
 								public void run() {
 									player.teleport(locTPf);
+									PlayerVisibilityManager.updatePlayerVisibility(joueur);
 								}
 							}, 1);
 						}
-						else
+						else {
 							player.teleport(locTP);
+							PlayerVisibilityManager.updatePlayerVisibility(this);
+						}
 					}
-					else
+					else {
 						player.teleport(locTP);
+						PlayerVisibilityManager.updatePlayerVisibility(this);
+					}
 				}
 				if (!restauration)
 				{
@@ -1296,8 +1302,9 @@ class Joueur
 	{
 		VisibiliteJoueurs mode = VisibiliteJoueurs.VISIBLE;
 		if (visibiliteJoueurs() == VisibiliteJoueurs.VISIBLE)
-			mode = VisibiliteJoueurs.TRANSPARENT;
-		else if (visibiliteJoueurs() == VisibiliteJoueurs.TRANSPARENT)
+		// DISABLED BECAUSE GHOSTS ARE BROKEN
+		//	mode = VisibiliteJoueurs.TRANSPARENT;
+		//else if (visibiliteJoueurs() == VisibiliteJoueurs.TRANSPARENT)
 			mode = VisibiliteJoueurs.INVISIBLE;
 		changerVisibiliteJoueurs(mode, msg);
 	}
@@ -1604,9 +1611,10 @@ class Joueur
 					t = getMapObjet().getTime(t.playerUUID); // On reprend le temps de la map (il est peut-être plus à jour)
 					if (t != null && t.hasGhost())
 					{
-						Fantome f = new Fantome(t, this);
-						f.demarrer();
-						fantomesVus.add(f);
+						// DISABLED GHOSTS
+						//Fantome f = new Fantome(t, this);
+						//f.demarrer();
+						//fantomesVus.add(f);
 					}
 				}
 				if (!fantomesVus.isEmpty() && visibiliteJoueurs() == VisibiliteJoueurs.INVISIBLE)

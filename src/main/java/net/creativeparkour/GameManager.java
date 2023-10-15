@@ -1054,7 +1054,6 @@ class GameManager implements Listener
 			{
 				j.setMap(map.getUUID());
 				map.jouer(j, teleporter);
-
 				map.addAttempt(p.getUniqueId());
 			}
 		}
