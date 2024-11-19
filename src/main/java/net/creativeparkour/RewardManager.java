@@ -56,8 +56,8 @@ class RewardManager implements Listener
 			config.set("example1.itemname", Material.IRON_HELMET.name());
 			config.set("example1.itemdata", 0);
 			List<String> liste = new ArrayList<String>();
-			liste.add(Enchantment.OXYGEN.getName() + ":1");
-			liste.add(Enchantment.DURABILITY.getName() + ":2");
+			liste.add(Enchantment.RESPIRATION.getName() + ":1");
+			liste.add(Enchantment.UNBREAKING.getName() + ":2");
 			config.set("example1.itemenchants", liste);
 			// XP
 			config.set("example2.type", "XP");

@@ -38,9 +38,9 @@ class BlocEffet extends BlocSpecial
 		
 		PotionEffectType effectType = null;
 		if (effect.equalsIgnoreCase("SPEED")) effectType = PotionEffectType.SPEED;
-		else if (effect.equalsIgnoreCase("SLOW") || effect.equalsIgnoreCase("SLOWNESS")) effectType = PotionEffectType.SLOW;
-		else if (effect.equalsIgnoreCase("JUMP") || effect.equalsIgnoreCase("JUMP_BOOST")) effectType = PotionEffectType.JUMP;
-		else if (effect.equalsIgnoreCase("CONFUSION") || effect.equalsIgnoreCase("NAUSEA")) effectType = PotionEffectType.CONFUSION;
+		else if (effect.equalsIgnoreCase("SLOW") || effect.equalsIgnoreCase("SLOWNESS")) effectType = PotionEffectType.SLOWNESS;
+		else if (effect.equalsIgnoreCase("JUMP") || effect.equalsIgnoreCase("JUMP_BOOST")) effectType = PotionEffectType.JUMP_BOOST;
+		else if (effect.equalsIgnoreCase("CONFUSION") || effect.equalsIgnoreCase("NAUSEA")) effectType = PotionEffectType.NAUSEA;
 		else if (effect.equalsIgnoreCase("BLINDNESS")) effectType = PotionEffectType.BLINDNESS;
 		else if (effect.equalsIgnoreCase("NIGHT_VISION")) effectType = PotionEffectType.NIGHT_VISION;
 		else if (effect.equalsIgnoreCase("LEVITATION")) effectType = PotionEffectType.LEVITATION;
@@ -112,9 +112,9 @@ class BlocEffet extends BlocSpecial
 	static void supprimerEffets(Player p)
 	{
 		p.removePotionEffect(PotionEffectType.SPEED);
-		p.removePotionEffect(PotionEffectType.SLOW);
-		p.removePotionEffect(PotionEffectType.JUMP);
-		p.removePotionEffect(PotionEffectType.CONFUSION);
+		p.removePotionEffect(PotionEffectType.SLOWNESS);
+		p.removePotionEffect(PotionEffectType.JUMP_BOOST);
+		p.removePotionEffect(PotionEffectType.NAUSEA);
 		p.removePotionEffect(PotionEffectType.BLINDNESS);
 		p.removePotionEffect(PotionEffectType.NIGHT_VISION);
 		try {

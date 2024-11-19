@@ -209,7 +209,7 @@ class Joueur
 			items.add(item);
 			ItemMeta im = item.getItemMeta();
 			im.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + Langues.getMessage("creation.items.worldedit wand"));
-			im.addEnchant(Enchantment.DIG_SPEED, 10, true);
+			im.addEnchant(Enchantment.EFFICIENCY, 10, true);
 			item.setItemMeta(im);
 		}
 		items.add(new ItemStack(Material.OAK_SIGN));
